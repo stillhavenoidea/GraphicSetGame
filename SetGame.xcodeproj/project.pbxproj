@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1F783DA520939AE70006EC19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F783DA420939AE70006EC19 /* AppDelegate.swift */; };
-		1F783DA720939AE70006EC19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F783DA620939AE70006EC19 /* ViewController.swift */; };
 		1F783DAA20939AE70006EC19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F783DA820939AE70006EC19 /* Main.storyboard */; };
 		1F783DAC20939AE70006EC19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F783DAB20939AE70006EC19 /* Assets.xcassets */; };
 		1F783DAF20939AE70006EC19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F783DAD20939AE70006EC19 /* LaunchScreen.storyboard */; };
 		1F783DBA20939AE80006EC19 /* SetGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F783DB920939AE80006EC19 /* SetGameTests.swift */; };
 		1F783DC520939AE80006EC19 /* SetGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F783DC420939AE80006EC19 /* SetGameUITests.swift */; };
+		1F81FB4320986F0400E99EB4 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F81FB4220986F0400E99EB4 /* SetGame.swift */; };
+		1FC3013820CD1E730073851B /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3013720CD1E730073851B /* SetCardView.swift */; };
+		1FC3013A20CD25FB0073851B /* GraphicSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3013920CD25FB0073851B /* GraphicSetViewController.swift */; };
+		1FC3013C20CD59850073851B /* DiamondSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3013B20CD59850073851B /* DiamondSymbolView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,6 @@
 /* Begin PBXFileReference section */
 		1F783DA120939AE70006EC19 /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F783DA420939AE70006EC19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F783DA620939AE70006EC19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1F783DA920939AE70006EC19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F783DAB20939AE70006EC19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F783DAE20939AE70006EC19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +49,10 @@
 		1F783DC020939AE80006EC19 /* SetGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SetGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F783DC420939AE80006EC19 /* SetGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameUITests.swift; sourceTree = "<group>"; };
 		1F783DC620939AE80006EC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F81FB4220986F0400E99EB4 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		1FC3013720CD1E730073851B /* SetCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardView.swift; sourceTree = "<group>"; };
+		1FC3013920CD25FB0073851B /* GraphicSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicSetViewController.swift; sourceTree = "<group>"; };
+		1FC3013B20CD59850073851B /* DiamondSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondSymbolView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +104,10 @@
 			isa = PBXGroup;
 			children = (
 				1F783DA420939AE70006EC19 /* AppDelegate.swift */,
-				1F783DA620939AE70006EC19 /* ViewController.swift */,
+				1F81FB4220986F0400E99EB4 /* SetGame.swift */,
+				1FC3013720CD1E730073851B /* SetCardView.swift */,
+				1FC3013B20CD59850073851B /* DiamondSymbolView.swift */,
+				1FC3013920CD25FB0073851B /* GraphicSetViewController.swift */,
 				1F783DA820939AE70006EC19 /* Main.storyboard */,
 				1F783DAB20939AE70006EC19 /* Assets.xcassets */,
 				1F783DAD20939AE70006EC19 /* LaunchScreen.storyboard */,
@@ -259,7 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F783DA720939AE70006EC19 /* ViewController.swift in Sources */,
+				1FC3013820CD1E730073851B /* SetCardView.swift in Sources */,
+				1F81FB4320986F0400E99EB4 /* SetGame.swift in Sources */,
+				1FC3013C20CD59850073851B /* DiamondSymbolView.swift in Sources */,
+				1FC3013A20CD25FB0073851B /* GraphicSetViewController.swift in Sources */,
 				1F783DA520939AE70006EC19 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
