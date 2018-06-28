@@ -10,23 +10,88 @@ import UIKit
 
 class GraphicSetViewController: UIViewController {
     var cards: [SetCardView] = []
+    @IBOutlet weak var gameZone: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cardRect = CGRect(x: 50, y: 50, width: 60, height: 100)
-        let card = SetCardView(frame: cardRect)
-//        card.backgroundColor = UIColor.yellow
-        view.addSubview(card)
-        cards.append(card)
     }
     
-    @IBAction func onNewGamepressed(_ sender: UIButton) {
-    print("New game pressed")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        drawDeck()
+    }
+    
+    
+    @IBAction func onNewGamePressed(_ sender: UIButton) {
+        print("New game pressed")
+        clearTable()
     }
     
     @IBAction func onDeal3MoreCardsPressed(_ sender: UIButton) {
-        cards[0].layer.borderColor = UIColor.blue.cgColor
-        cards[0].layer.borderWidth = 5
+        cards[0].layer.borderColor = UIColor.red.cgColor
+        cards[0].layer.borderWidth = 3
         print("Deal 3 more cards pressed")
     }
+    
+    func clearTable() {
+        if cards.count > 0 {
+        _ = cards.map{$0.removeFromSuperview()}
+        cards = []
+        }
+    }
+    
+    func drawDeck() {
+        var grid = Grid(layout: .aspectRatio(2/3), frame: gameZone.frame)
+        let numberOfCards = SetGame.singleton.inGameCards.count
+        grid.cellCount = numberOfCards
+        for i in 0..<numberOfCards {
+            let cardRect = grid[i]!.insetBy(dx: 2, dy: 2)
+            var number: SetCardView.Number
+            var shape: SetCardView.Shape
+            var color: SetCardView.Color
+            var shading: SetCardView.Shading
+            
+            switch SetGame.singleton.inGameCards[i].number {
+            case .firstNumber:
+                number = .single
+            case .secondNumber:
+                number = .double
+            case .thirdNumber:
+                number = .triple
+            }
+            
+            switch SetGame.singleton.inGameCards[i].shape {
+            case .firstShape:
+                shape = .diamond
+            case .secondShape:
+                shape = .halfDiamond
+            case .thirdShape:
+                shape = .plateJewel
+            }
+            
+            switch SetGame.singleton.inGameCards[i].color {
+            case .firstColor:
+                color = .purple
+            case .secondColor:
+                color = .green
+            case .thirdColor:
+                color = .blue
+            }
+            
+            switch SetGame.singleton.inGameCards[i].shading {
+            case .firstShading:
+                shading = .full
+            case .secondShading:
+                shading = .half
+            case .thirdShading:
+                shading = .empty
+            }
+            
+            let card = SetCardView(frame: cardRect, number: number , shape: shape , color: color, shading: shading)
+            view.addSubview(card)
+            cards.append(card)
+        }
+    }
+    
+    
 }

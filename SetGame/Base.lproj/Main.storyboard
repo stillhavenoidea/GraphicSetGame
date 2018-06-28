@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,26 +41,48 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="onNewGamepressed:" destination="MqM-HO-3yd" eventType="touchUpInside" id="qdB-pY-TRa"/>
+                                    <action selector="onNewGamePressed:" destination="MqM-HO-3yd" eventType="touchUpInside" id="qdB-pY-TRa"/>
                                 </connections>
                             </button>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KCE-Tn-Fn3" customClass="DiamondSymbolView" customModule="SetGame" customModuleProvider="target">
-                                <rect key="frame" x="45" y="38" width="285" height="332"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scores: 270" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1e-cg-SDu">
+                                <rect key="frame" x="16" y="20" width="96" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards left: 33" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBW-oO-cMt">
+                                <rect key="frame" x="250" y="20" width="109" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P5A-wE-JwS" userLabel="GameZone">
+                                <rect key="frame" x="2" y="49" width="371" height="570"/>
+                                <color key="backgroundColor" red="0.054337300360202789" green="0.90232902765274048" blue="0.62728238105773926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.054337300360202789" green="0.90232902765274048" blue="0.62728238105773926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="68R-eB-cTr" firstAttribute="leading" secondItem="aAh-ZL-bQU" secondAttribute="leading" id="3T8-UK-NTv"/>
+                            <constraint firstItem="aAh-ZL-bQU" firstAttribute="trailing" secondItem="P5A-wE-JwS" secondAttribute="trailing" constant="2" id="7KX-kM-dZK"/>
                             <constraint firstItem="68R-eB-cTr" firstAttribute="bottom" secondItem="aAh-ZL-bQU" secondAttribute="bottom" id="89Q-w2-pBC"/>
+                            <constraint firstItem="aAh-ZL-bQU" firstAttribute="trailing" secondItem="IBW-oO-cMt" secondAttribute="trailing" constant="16" id="FEh-Mm-rqz"/>
+                            <constraint firstItem="P5A-wE-JwS" firstAttribute="leading" secondItem="aAh-ZL-bQU" secondAttribute="leading" constant="2" id="Jsk-CZ-iA6"/>
                             <constraint firstItem="Ak8-xG-4ZC" firstAttribute="bottom" secondItem="aAh-ZL-bQU" secondAttribute="bottom" id="ReC-q4-fGN"/>
                             <constraint firstItem="Ak8-xG-4ZC" firstAttribute="height" secondItem="68R-eB-cTr" secondAttribute="height" id="TYO-CC-G76"/>
+                            <constraint firstItem="IBW-oO-cMt" firstAttribute="top" secondItem="xTZ-0X-snX" secondAttribute="topMargin" id="UGk-0z-agz"/>
                             <constraint firstItem="Ak8-xG-4ZC" firstAttribute="leading" secondItem="68R-eB-cTr" secondAttribute="trailing" id="aaK-8N-iY3"/>
+                            <constraint firstItem="68R-eB-cTr" firstAttribute="top" secondItem="P5A-wE-JwS" secondAttribute="bottom" constant="8" id="beS-rF-R2K"/>
                             <constraint firstItem="Ak8-xG-4ZC" firstAttribute="trailing" secondItem="aAh-ZL-bQU" secondAttribute="trailing" id="j6z-ef-XT7"/>
+                            <constraint firstItem="r1e-cg-SDu" firstAttribute="top" secondItem="aAh-ZL-bQU" secondAttribute="top" id="ozh-3E-I4w"/>
+                            <constraint firstItem="r1e-cg-SDu" firstAttribute="leading" secondItem="aAh-ZL-bQU" secondAttribute="leading" constant="16" id="qhX-9G-KRu"/>
+                            <constraint firstItem="P5A-wE-JwS" firstAttribute="top" secondItem="r1e-cg-SDu" secondAttribute="bottom" constant="8" id="wiT-uD-43a"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aAh-ZL-bQU"/>
                     </view>
+                    <connections>
+                        <outlet property="gameZone" destination="P5A-wE-JwS" id="6ik-dz-Zy0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kuG-uw-Z5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
