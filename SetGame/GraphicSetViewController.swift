@@ -25,12 +25,15 @@ class GraphicSetViewController: UIViewController {
     @IBAction func onNewGamePressed(_ sender: UIButton) {
         print("New game pressed")
         clearTable()
+        SetGame.singleton.startNewGame()
+        drawDeck()
     }
     
     @IBAction func onDeal3MoreCardsPressed(_ sender: UIButton) {
-        cards[0].layer.borderColor = UIColor.red.cgColor
-        cards[0].layer.borderWidth = 3
         print("Deal 3 more cards pressed")
+        SetGame.singleton.deal3MoreCards()
+        clearTable()
+        drawDeck()
     }
     
     func clearTable() {
@@ -71,7 +74,7 @@ class GraphicSetViewController: UIViewController {
             
             switch SetGame.singleton.inGameCards[i].color {
             case .firstColor:
-                color = .purple
+                color = .yellow
             case .secondColor:
                 color = .green
             case .thirdColor:

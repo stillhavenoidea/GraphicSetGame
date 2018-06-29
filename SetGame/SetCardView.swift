@@ -16,7 +16,7 @@ class SetCardView: UIView {
     var symbolColor: UIColor = UIColor.black
     var symbolNumber: Number = .single
     var symbolShape: Shape = .diamond
-    var colorsArray: [UIColor] = [#colorLiteral(red: 0, green: 0.6643600464, blue: 0.5255932808, alpha: 1),#colorLiteral(red: 0.7061836123, green: 0.2348881364, blue: 0.8280827403, alpha: 1),#colorLiteral(red: 0.1833226383, green: 0.5981394649, blue: 0.9146681428, alpha: 1)]
+    var colorsArray: [UIColor] = [#colorLiteral(red: 0.1980642378, green: 0.52528584, blue: 0.08727363497, alpha: 1),#colorLiteral(red: 1, green: 0.7402812839, blue: 0, alpha: 1),#colorLiteral(red: 0.939566493, green: 0.1721510291, blue: 0.125985831, alpha: 1)]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +26,7 @@ class SetCardView: UIView {
         switch color {
         case .green:
             symbolColor = colorsArray[0]
-        case .purple:
+        case .yellow:
             symbolColor = colorsArray[1]
         case .blue:
             symbolColor = colorsArray[2]
@@ -150,7 +150,7 @@ class SetCardView: UIView {
     }
     
     enum Color {
-        case purple
+        case yellow
         case green
         case blue
     }

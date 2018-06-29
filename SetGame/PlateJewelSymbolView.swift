@@ -9,7 +9,7 @@
 import UIKit
 
 class PlateJewelSymbolView: CardSymbolViewTemplate {
-    
+
     override func getDrawingPoints() {
         drawingPoints.append(CGPoint(x: midX, y: topY))
         drawingPoints.append(CGPoint(x: leftX + 6*width/8, y: topY + height/4))
