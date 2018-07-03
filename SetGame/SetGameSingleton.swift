@@ -7,8 +7,8 @@
 
 import Foundation
 
-class SetGame {
-    private(set) static var singleton: SetGame! = SetGame()
+class SetGameSingleton {
+    private(set) static var instance: SetGameSingleton! = SetGameSingleton()
     private var deck: [SetCard] = []
     private let initialCardQuantity = 12
     var inGameCards: [SetCard] = []
@@ -20,18 +20,18 @@ class SetGame {
     }
     
     deinit {
-        print("Deallocating game instance")
+        print("MODEL: Deallocating game instance")
     }
     
     func startNewGame() {
-        SetGame.singleton = nil
-        SetGame.singleton = SetGame()
+        SetGameSingleton.instance = nil
+        SetGameSingleton.instance = SetGameSingleton()
     }
     
 
     private func generateFullDeck() {
        //Generating 81 card deck using raw-value initalizers with nested cycles
-        print("Deck is generating")
+        print("MODEL: Deck is generating")
         for numberInt in 0...2 {
             for shapeInt in 0...2 {
                 for colorInt in 0...2 {
@@ -60,27 +60,32 @@ class SetGame {
     }
     
     func processCards(indexArray: [Int]) -> Bool {
-        let firstCard = inGameCards[indexArray[0]]
-        let secondCard = inGameCards[indexArray[1]]
-        let thirdCard = inGameCards[indexArray[2]]
-        let acceptableSumValueSet = [0,3,6]
-        let numberRawVauleSum = firstCard.number.rawValue + secondCard.number.rawValue + thirdCard.number.rawValue
-        let shapeRawVauleSum = firstCard.shape.rawValue + secondCard.shape.rawValue + thirdCard.shape.rawValue
-        let colorRawVauleSum = firstCard.color.rawValue + secondCard.color.rawValue + thirdCard.color.rawValue
-        let shadingRawVauleSum = firstCard.shading.rawValue + secondCard.shading.rawValue + thirdCard.shading.rawValue
-        if  acceptableSumValueSet.contains(numberRawVauleSum) &&
-            acceptableSumValueSet.contains(shapeRawVauleSum) &&
-            acceptableSumValueSet.contains(colorRawVauleSum) &&
-            acceptableSumValueSet.contains(shadingRawVauleSum) {
-            print("Is set")
-            removeCards(firstCard, secondCard, thirdCard)
-            recalculateScores(wasSet: true)
-            return true
-        } else {
-            print("Not a set")
-            recalculateScores(wasSet: false)
-            return false
-        }
+        if indexArray.count == 3 {
+            let firstCard = inGameCards[indexArray[0]]
+            let secondCard = inGameCards[indexArray[1]]
+            let thirdCard = inGameCards[indexArray[2]]
+            let acceptableSumValueSet = [0,3,6]
+            let numberRawVauleSum = firstCard.number.rawValue + secondCard.number.rawValue + thirdCard.number.rawValue
+            let shapeRawVauleSum = firstCard.shape.rawValue + secondCard.shape.rawValue + thirdCard.shape.rawValue
+            let colorRawVauleSum = firstCard.color.rawValue + secondCard.color.rawValue + thirdCard.color.rawValue
+            let shadingRawVauleSum = firstCard.shading.rawValue + secondCard.shading.rawValue + thirdCard.shading.rawValue
+            if  acceptableSumValueSet.contains(numberRawVauleSum) &&
+                acceptableSumValueSet.contains(shapeRawVauleSum) &&
+                acceptableSumValueSet.contains(colorRawVauleSum) &&
+                acceptableSumValueSet.contains(shadingRawVauleSum) {
+                print("Is set")
+                removeCards(firstCard, secondCard, thirdCard)
+                recalculateScores(wasSet: true)
+                return true
+            } else {
+                print("Not a set")
+                inGameCards[indexArray[0]].isSelected = false
+                inGameCards[indexArray[1]].isSelected = false
+                inGameCards[indexArray[2]].isSelected = false
+                recalculateScores(wasSet: false)
+                return false
+            }
+        } else { return false }
     }
     
     private func recalculateScores(wasSet: Bool) {
@@ -97,6 +102,11 @@ class SetGame {
             inGameCards.remove(at: cardIndex)
         }
     }
+    
+    func getNumberOfCardsLeft() -> Int {
+        return deck.count
+    }
+    
 }
 
 struct SetCard: Equatable {

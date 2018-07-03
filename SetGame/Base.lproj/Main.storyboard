@@ -81,7 +81,9 @@
                         <viewLayoutGuide key="safeArea" id="aAh-ZL-bQU"/>
                     </view>
                     <connections>
+                        <outlet property="cardsLeftLabel" destination="IBW-oO-cMt" id="uxv-Iy-yCb"/>
                         <outlet property="gameZone" destination="P5A-wE-JwS" id="6ik-dz-Zy0"/>
+                        <outlet property="scoresLabel" destination="r1e-cg-SDu" id="Q68-hA-TVv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kuG-uw-Z5O" userLabel="First Responder" sceneMemberID="firstResponder"/>

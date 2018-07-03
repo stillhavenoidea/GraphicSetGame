@@ -10,7 +10,10 @@ import UIKit
 
 class GraphicSetViewController: UIViewController {
     var cards: [SetCardView] = []
+    var selectedCardNumbers: [Int] = []
     @IBOutlet weak var gameZone: UIView!
+    @IBOutlet weak var scoresLabel: UILabel!
+    @IBOutlet weak var cardsLeftLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,19 +22,20 @@ class GraphicSetViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         drawDeck()
+        showGameInfo()
     }
     
     
     @IBAction func onNewGamePressed(_ sender: UIButton) {
         print("New game pressed")
         clearTable()
-        SetGame.singleton.startNewGame()
+        SetGameSingleton.instance.startNewGame()
         drawDeck()
     }
     
     @IBAction func onDeal3MoreCardsPressed(_ sender: UIButton) {
         print("Deal 3 more cards pressed")
-        SetGame.singleton.deal3MoreCards()
+        SetGameSingleton.instance.deal3MoreCards()
         clearTable()
         drawDeck()
     }
@@ -40,12 +44,13 @@ class GraphicSetViewController: UIViewController {
         if cards.count > 0 {
         _ = cards.map{$0.removeFromSuperview()}
         cards = []
+        selectedCardNumbers = []
         }
     }
     
     func drawDeck() {
         var grid = Grid(layout: .aspectRatio(2/3), frame: gameZone.frame)
-        let numberOfCards = SetGame.singleton.inGameCards.count
+        let numberOfCards = SetGameSingleton.instance.inGameCards.count
         grid.cellCount = numberOfCards
         for i in 0..<numberOfCards {
             let cardRect = grid[i]!.insetBy(dx: 2, dy: 2)
@@ -54,7 +59,7 @@ class GraphicSetViewController: UIViewController {
             var color: SetCardView.Color
             var shading: SetCardView.Shading
             
-            switch SetGame.singleton.inGameCards[i].number {
+            switch SetGameSingleton.instance.inGameCards[i].number {
             case .firstNumber:
                 number = .single
             case .secondNumber:
@@ -63,7 +68,7 @@ class GraphicSetViewController: UIViewController {
                 number = .triple
             }
             
-            switch SetGame.singleton.inGameCards[i].shape {
+            switch SetGameSingleton.instance.inGameCards[i].shape {
             case .firstShape:
                 shape = .diamond
             case .secondShape:
@@ -72,7 +77,7 @@ class GraphicSetViewController: UIViewController {
                 shape = .plateJewel
             }
             
-            switch SetGame.singleton.inGameCards[i].color {
+            switch SetGameSingleton.instance.inGameCards[i].color {
             case .firstColor:
                 color = .yellow
             case .secondColor:
@@ -81,7 +86,7 @@ class GraphicSetViewController: UIViewController {
                 color = .blue
             }
             
-            switch SetGame.singleton.inGameCards[i].shading {
+            switch SetGameSingleton.instance.inGameCards[i].shading {
             case .firstShading:
                 shading = .full
             case .secondShading:
@@ -91,10 +96,81 @@ class GraphicSetViewController: UIViewController {
             }
             
             let card = SetCardView(frame: cardRect, number: number , shape: shape , color: color, shading: shading)
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onCardTapped(recognizer:)))
+            card.addGestureRecognizer(tapGesture)
             view.addSubview(card)
             cards.append(card)
+            if SetGameSingleton.instance.inGameCards[i].isSelected { selectView(card)}
+        }
+        showGameInfo()
+    }
+    
+    @objc func onCardTapped(recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .ended:
+            let sender  = recognizer.view as! SetCardView
+            processSelectedCard(sender)
+        default:
+            print("Aborted")
         }
     }
     
+    func processSelectedCard(_ sender: SetCardView) {
+        if selectedCardNumbers.count < 3 {
+            
+            let cardIndex = cards.index(of: sender)!
+            print("CARD \(cardIndex) TAPPED")
+            if SetGameSingleton.instance.inGameCards[cardIndex].isSelected {
+                SetGameSingleton.instance.inGameCards[cardIndex].isSelected = false
+                deSelectView(sender)
+                selectedCardNumbers.remove(at: selectedCardNumbers.index(of: cardIndex)!)
+            } else {
+                SetGameSingleton.instance.inGameCards[cardIndex].isSelected = true
+                selectedCardNumbers.append(cardIndex)
+                selectView(sender)
+                if selectedCardNumbers.count == 3 {
+                    Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                        let result = SetGameSingleton.instance.processCards(indexArray: self.selectedCardNumbers)
+                        if result {
+                            UIViewPropertyAnimator.runningPropertyAnimator(
+                                withDuration: 0.5,
+                                delay: 0,
+                                options: [],
+                                animations: {
+                                    for i in self.selectedCardNumbers {
+                                        self.cards[i].alpha = 0
+                                    }
+                                    
+                            },
+                                completion: { position in
+                                    self.clearTable()
+                                    self.drawDeck()})
+                        }
+                        self.selectedCardNumbers = []
+                        self.deSelectAllViews()
+                    }
+                }
+                showGameInfo()
+            }
+        } else { print("Tap ignored!") }
+    }
     
+    func selectView(_ cardView: SetCardView) {
+        cardView.layer.borderColor = UIColor.red.cgColor
+        cardView.layer.borderWidth = 3
+    }
+    
+    
+    func deSelectView(_ cardView: SetCardView) {
+        cardView.layer.borderWidth = 0
+    }
+    
+    func deSelectAllViews() {
+        _ = cards.map { $0.layer.borderWidth = 0 }
+    }
+    
+    func showGameInfo() {
+        scoresLabel.text = ("Scores: \(SetGameSingleton.instance.gameScores)")
+        cardsLeftLabel.text = ("Cards left: \(SetGameSingleton.instance.getNumberOfCardsLeft())")
+    }
 }
